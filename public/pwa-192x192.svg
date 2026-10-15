@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="url(#bg)"/>
+  <rect x="2" y="2" width="188" height="188" rx="40" fill="none" stroke="#1f293d" stroke-width="3"/>
+  <!-- Target / Crosshair icon for CS2 -->
+  <circle cx="96" cy="96" r="48" fill="none" stroke="url(#grad)" stroke-width="7" stroke-dasharray="14 10"/>
+  <circle cx="96" cy="96" r="24" fill="none" stroke="#06b6d4" stroke-width="4"/>
+  <circle cx="96" cy="96" r="6" fill="#f59e0b"/>
+  <!-- Crosshairs -->
+  <line x1="96" y1="36" x2="96" y2="60" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="96" y1="132" x2="96" y2="156" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="36" y1="96" x2="60" y2="96" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="132" y1="96" x2="156" y2="96" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+</svg>
