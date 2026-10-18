@@ -5,6 +5,7 @@ import { Dashboard } from './pages/Dashboard';
 import { NewBet } from './pages/NewBet';
 import { History } from './pages/History';
 import { Wallet } from './pages/Wallet';
+import { ImportBet } from './pages/ImportBet';
 
 export const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
           <Route path="new-bet" element={<NewBet />} />
           <Route path="history" element={<History />} />
           <Route path="wallet" element={<Wallet />} />
+          <Route path="import-bet" element={<ImportBet />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

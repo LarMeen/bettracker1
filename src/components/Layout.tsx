@@ -20,6 +20,8 @@ export const Layout: React.FC = () => {
         return 'История ставок';
       case '/wallet':
         return 'Виртуальный банк';
+      case '/import-bet':
+        return 'Импорт ставки';
       default:
         return 'CS2 BetTracker';
     }

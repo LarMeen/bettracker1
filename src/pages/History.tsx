@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { History as HistoryIcon, Layers } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { History as HistoryIcon, Layers, Download } from 'lucide-react';
 import { subDays, startOfMonth } from 'date-fns';
 import { useBets } from '../hooks/useBets';
 import { useBalance } from '../hooks/useBalance';
@@ -88,32 +89,47 @@ export const History: React.FC = () => {
 
   return (
     <div className="space-y-5 animate-in fade-in duration-200">
-      {/* Filters Bar */}
-      <FilterBar
-        filters={filters}
-        onChange={setFilters}
-        onReset={() => setFilters(initialFilters)}
-      />
+      {/* Filters Bar & Quick Action */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex-1">
+          <FilterBar
+            filters={filters}
+            onChange={setFilters}
+            onReset={() => setFilters(initialFilters)}
+          />
+        </div>
+      </div>
 
-      {/* Filter summary bar */}
-      <div className="flex items-center justify-between text-xs text-palette-400 px-3 py-2 rounded-2xl glass-card-subtle">
-        <span className="flex items-center gap-1.5 font-medium">
-          <Layers className="w-3.5 h-3.5 text-palette-200" />
-          <span>Найдено:</span>
-          <strong className="text-palette-100 font-mono font-black tabular-nums">{filteredBets.length}</strong>
-        </span>
-        {filteredStats.settledCount > 0 && (
-          <span className="font-mono tabular-nums text-xs">
-            Профит выборки:{' '}
-            <strong
-              className={`font-black ${
-                filteredStats.profit >= 0 ? 'text-status-win' : 'text-status-loss'
-              }`}
-            >
-              {formatCurrencyWithSign(filteredStats.profit, currency)}
-            </strong>
+      {/* Filter summary bar with quick Import Bet button */}
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-palette-400 px-3.5 py-2 rounded-2xl glass-card-subtle">
+        <div className="flex items-center gap-3">
+          <span className="flex items-center gap-1.5 font-medium">
+            <Layers className="w-3.5 h-3.5 text-palette-200" />
+            <span>Найдено:</span>
+            <strong className="text-palette-100 font-mono font-black tabular-nums">{filteredBets.length}</strong>
           </span>
-        )}
+
+          {filteredStats.settledCount > 0 && (
+            <span className="font-mono tabular-nums text-xs">
+              Профит:{' '}
+              <strong
+                className={`font-black ${
+                  filteredStats.profit >= 0 ? 'text-status-win' : 'text-status-loss'
+                }`}
+              >
+                {formatCurrencyWithSign(filteredStats.profit, currency)}
+              </strong>
+            </span>
+          )}
+        </div>
+
+        <Link
+          to="/import-bet"
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-palette-800/80 hover:bg-palette-700 text-palette-200 hover:text-palette-100 font-semibold text-xs border border-palette-400/20 active:scale-95 transition-all shadow-inner-light"
+        >
+          <Download className="w-3 h-3 text-palette-200" />
+          <span>Импортировать ставку</span>
+        </Link>
       </div>
 
       {/* Bets Grid: 1 col on mobile, 2 cols on tablet/desktop */}

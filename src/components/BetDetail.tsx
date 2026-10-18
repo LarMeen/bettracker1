@@ -9,11 +9,13 @@ import {
   Calendar,
   DollarSign,
   TrendingUp,
+  Share2,
 } from 'lucide-react';
 import type { Bet } from '../db';
 import { BET_STATUS_LABELS, BET_TYPE_LABELS } from '../utils/constants';
 import { formatCurrency, formatCurrencyWithSign, formatOdds, formatDateTime } from '../utils/format';
 import { ConfirmDialog } from './ConfirmDialog';
+import { ShareBetModal } from './ShareBetModal';
 
 interface BetDetailProps {
   bet: Bet | null;
@@ -33,6 +35,7 @@ export const BetDetail: React.FC<BetDetailProps> = ({
   currency = '₽',
 }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen || !bet) return null;
@@ -155,6 +158,16 @@ export const BetDetail: React.FC<BetDetailProps> = ({
             </div>
           </div>
 
+          {/* Quick Transfer Button */}
+          <button
+            type="button"
+            onClick={() => setShowShareModal(true)}
+            className="w-full py-3 px-4 rounded-2xl bg-palette-800/80 hover:bg-palette-700/80 border border-palette-400/25 text-palette-100 font-bold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all shadow-glass"
+          >
+            <Share2 className="w-4 h-4 text-palette-200" />
+            <span>Перенести на другое устройство (QR / Ссылка)</span>
+          </button>
+
           {/* HLTV Link button */}
           {bet.hltvUrl && (
             <a
@@ -252,6 +265,13 @@ export const BetDetail: React.FC<BetDetailProps> = ({
         confirmVariant="danger"
         onConfirm={handleDelete}
         onCancel={() => setShowDeleteConfirm(false)}
+      />
+
+      {/* Share / Transfer Modal */}
+      <ShareBetModal
+        bet={bet}
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
       />
     </>
   );

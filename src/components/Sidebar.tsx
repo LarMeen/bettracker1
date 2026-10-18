@@ -6,6 +6,7 @@ import {
   PlusCircle,
   History,
   Wallet,
+  Download,
   Crosshair,
   TrendingUp,
   ShieldCheck,
@@ -25,6 +26,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, balance, curr
     { to: '/new-bet', label: 'Новая ставка', icon: PlusCircle },
     { to: '/history', label: 'История ставок', icon: History },
     { to: '/wallet', label: 'Банк и Кошелек', icon: Wallet },
+    { to: '/import-bet', label: 'Импорт ставки', icon: Download },
   ];
 
   return (
