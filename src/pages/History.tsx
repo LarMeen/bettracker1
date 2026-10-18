@@ -87,7 +87,7 @@ export const History: React.FC = () => {
   }, [filteredBets]);
 
   return (
-    <div className="space-y-4 animate-in fade-in duration-200">
+    <div className="space-y-5 animate-in fade-in duration-200">
       {/* Filters Bar */}
       <FilterBar
         filters={filters}
@@ -96,18 +96,18 @@ export const History: React.FC = () => {
       />
 
       {/* Filter summary bar */}
-      <div className="flex items-center justify-between text-xs text-slate-400 px-2 py-1 rounded-xl bg-slate-900/40 border border-white/[0.06]">
+      <div className="flex items-center justify-between text-xs text-palette-400 px-3 py-2 rounded-2xl glass-card-subtle">
         <span className="flex items-center gap-1.5 font-medium">
-          <Layers className="w-3.5 h-3.5 text-amber-400" />
+          <Layers className="w-3.5 h-3.5 text-palette-200" />
           <span>Найдено:</span>
-          <strong className="text-white font-mono font-black tabular-nums">{filteredBets.length}</strong>
+          <strong className="text-palette-100 font-mono font-black tabular-nums">{filteredBets.length}</strong>
         </span>
         {filteredStats.settledCount > 0 && (
           <span className="font-mono tabular-nums text-xs">
-            Профит:{' '}
+            Профит выборки:{' '}
             <strong
               className={`font-black ${
-                filteredStats.profit >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                filteredStats.profit >= 0 ? 'text-status-win' : 'text-status-loss'
               }`}
             >
               {formatCurrencyWithSign(filteredStats.profit, currency)}
@@ -116,19 +116,19 @@ export const History: React.FC = () => {
         )}
       </div>
 
-      {/* Bets List */}
+      {/* Bets Grid: 1 col on mobile, 2 cols on tablet/desktop */}
       {filteredBets.length === 0 ? (
-        <div className="p-8 rounded-3xl glass-card text-center space-y-2.5 shadow-xl">
-          <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center mx-auto border border-white/10 text-slate-500">
+        <div className="p-10 rounded-3xl glass-card text-center space-y-3 shadow-xl">
+          <div className="w-12 h-12 rounded-2xl bg-palette-900 flex items-center justify-center mx-auto border border-palette-400/20 text-palette-400">
             <HistoryIcon className="w-6 h-6" />
           </div>
-          <p className="font-bold text-white text-base">Ставки не найдены</p>
-          <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
+          <p className="font-bold text-palette-100 text-base">Ставки не найдены</p>
+          <p className="text-xs text-palette-400 max-w-xs mx-auto leading-relaxed">
             Попробуйте изменить параметры поиска или сбросить фильтры
           </p>
         </div>
       ) : (
-        <div className="space-y-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
           {filteredBets.map((bet) => (
             <BetCard
               key={bet.id}

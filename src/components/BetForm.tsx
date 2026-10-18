@@ -56,7 +56,7 @@ export const BetForm: React.FC<BetFormProps> = ({
         setHltvUrl(text.trim());
       }
     } catch {
-      // Clipboard access denied, user can paste normally
+      // Clipboard access denied, user can paste manually
     }
   };
 
@@ -146,28 +146,28 @@ export const BetForm: React.FC<BetFormProps> = ({
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* Error alert */}
       {errorMessage && (
-        <div className="p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-semibold shadow-glow-rose/10 animate-in fade-in">
+        <div className="p-3.5 rounded-2xl bg-status-loss/15 border border-status-loss/30 text-status-loss text-xs font-semibold shadow-glow-rose/10 animate-in fade-in">
           {errorMessage}
         </div>
       )}
 
       {/* Field 1: Match Title */}
       <div className="space-y-1.5">
-        <label htmlFor={titleId} className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-          Событие / Команды <span className="text-amber-400">*</span>
+        <label htmlFor={titleId} className="block text-xs font-bold uppercase tracking-wider text-palette-300">
+          Событие / Команды <span className="text-palette-200">*</span>
         </label>
         <input
           id={titleId}
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Navi vs FaZe, IEM Cologne"
+          placeholder="NaVi vs FaZe, BLAST Premier"
           required
           autoComplete="off"
         />
         {/* Quick teams pill scroller */}
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1.5 pb-0.5">
-          <span className="text-[10px] text-slate-400 uppercase tracking-wider shrink-0 font-bold">
+          <span className="text-[10px] text-palette-400 uppercase tracking-wider shrink-0 font-bold">
             Команды:
           </span>
           {POPULAR_CS2_TEAMS.slice(0, 8).map((team) => (
@@ -175,7 +175,7 @@ export const BetForm: React.FC<BetFormProps> = ({
               key={team}
               type="button"
               onClick={() => handleQuickTeam(team)}
-              className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white shrink-0 border border-white/10 hover:border-amber-400/40 transition-all active:scale-95"
+              className="text-[11px] font-semibold px-2.5 py-1 rounded-xl bg-palette-900/80 hover:bg-palette-800 text-palette-300 hover:text-palette-100 shrink-0 border border-palette-400/15 hover:border-palette-400/35 transition-all active:scale-95"
             >
               +{team}
             </button>
@@ -185,7 +185,7 @@ export const BetForm: React.FC<BetFormProps> = ({
 
       {/* Field 2: Bet Type Chips */}
       <div className="space-y-1.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">Тип ставки</label>
+        <label className="block text-xs font-bold uppercase tracking-wider text-palette-300">Тип ставки</label>
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
           {BET_TYPES.map((type) => (
             <button
@@ -204,10 +204,10 @@ export const BetForm: React.FC<BetFormProps> = ({
                   setBetPick(suggestions[type.value]);
                 }
               }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all active:scale-95 ${
+              className={`px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all active:scale-95 ${
                 betType === type.value
-                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-glow-gold/30 border border-amber-300/60'
-                  : 'bg-slate-900/80 text-slate-400 hover:text-white border border-white/10 hover:border-white/20'
+                  ? 'bg-palette-600 text-palette-100 shadow-glow-forest border border-palette-400/40'
+                  : 'bg-palette-900/80 text-palette-400 hover:text-palette-200 border border-palette-400/15'
               }`}
             >
               {type.short}
@@ -219,10 +219,10 @@ export const BetForm: React.FC<BetFormProps> = ({
       {/* Field 3: Bet Pick with fast suggestions */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
-          <label htmlFor={pickId} className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-            Выбор исхода (Пик) <span className="text-amber-400">*</span>
+          <label htmlFor={pickId} className="block text-xs font-bold uppercase tracking-wider text-palette-300">
+            Выбор исхода (Пик) <span className="text-palette-200">*</span>
           </label>
-          <span className="text-[11px] text-slate-400 font-medium">Например: П1 или ТБ 2.5</span>
+          <span className="text-[11px] text-palette-400 font-medium">Например: П1 или ТБ 2.5</span>
         </div>
         <input
           id={pickId}
@@ -241,8 +241,8 @@ export const BetForm: React.FC<BetFormProps> = ({
               onClick={() => setBetPick(sugg)}
               className={`text-xs font-bold px-3 py-1.5 rounded-xl border transition-all active:scale-95 ${
                 betPick === sugg
-                  ? 'bg-amber-500/20 border-amber-400/50 text-amber-300 shadow-glow-gold/10'
-                  : 'bg-slate-900/80 border-white/10 text-slate-400 hover:text-white hover:border-white/20'
+                  ? 'bg-palette-600/70 border-palette-400/40 text-palette-100 shadow-glow-forest/20'
+                  : 'bg-palette-900/80 border-palette-400/15 text-palette-400 hover:text-palette-200'
               }`}
             >
               {sugg}
@@ -254,19 +254,19 @@ export const BetForm: React.FC<BetFormProps> = ({
       {/* Field 4: HLTV URL */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
-          <label htmlFor={hltvId} className="block text-xs font-bold uppercase tracking-wider text-slate-300">
+          <label htmlFor={hltvId} className="block text-xs font-bold uppercase tracking-wider text-palette-300">
             Ссылка на матч (HLTV)
           </label>
           <button
             type="button"
             onClick={handlePasteHLTV}
-            className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 font-bold px-2 py-0.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 active:scale-95 transition-all"
+            className="inline-flex items-center gap-1 text-xs text-palette-200 hover:text-palette-100 font-bold px-2 py-0.5 rounded-lg bg-palette-700/60 border border-palette-400/25 active:scale-95 transition-all"
           >
             <Clipboard className="w-3 h-3" /> Вставить
           </button>
         </div>
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-palette-400">
             <LinkIcon className="w-4 h-4" />
           </div>
           <input
@@ -284,8 +284,8 @@ export const BetForm: React.FC<BetFormProps> = ({
       <div className="grid grid-cols-2 gap-3">
         {/* Stake */}
         <div className="space-y-1.5">
-          <label htmlFor={stakeId} className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-            Сумма ставки <span className="text-amber-400">*</span>
+          <label htmlFor={stakeId} className="block text-xs font-bold uppercase tracking-wider text-palette-300">
+            Сумма ставки <span className="text-palette-200">*</span>
           </label>
           <input
             id={stakeId}
@@ -303,8 +303,8 @@ export const BetForm: React.FC<BetFormProps> = ({
 
         {/* Odds */}
         <div className="space-y-1.5">
-          <label htmlFor={oddsId} className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-            Коэффициент <span className="text-amber-400">*</span>
+          <label htmlFor={oddsId} className="block text-xs font-bold uppercase tracking-wider text-palette-300">
+            Коэффициент <span className="text-palette-200">*</span>
           </label>
           <div className="relative flex items-center">
             <input
@@ -326,7 +326,7 @@ export const BetForm: React.FC<BetFormProps> = ({
                   const val = Math.max(1.01, Math.round((odds - 0.05) * 100) / 100);
                   setOddsStr(val.toFixed(2));
                 }}
-                className="w-7 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-black flex items-center justify-center border border-white/10 active:scale-95 transition-all"
+                className="w-7 h-8 rounded-lg bg-palette-800 hover:bg-palette-700 text-palette-200 text-xs font-black flex items-center justify-center border border-palette-400/20 active:scale-95 transition-all"
               >
                 -
               </button>
@@ -336,7 +336,7 @@ export const BetForm: React.FC<BetFormProps> = ({
                   const val = Math.round((odds + 0.05) * 100) / 100;
                   setOddsStr(val.toFixed(2));
                 }}
-                className="w-7 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-black flex items-center justify-center border border-white/10 active:scale-95 transition-all"
+                className="w-7 h-8 rounded-lg bg-palette-800 hover:bg-palette-700 text-palette-200 text-xs font-black flex items-center justify-center border border-palette-400/20 active:scale-95 transition-all"
               >
                 +
               </button>
@@ -347,12 +347,12 @@ export const BetForm: React.FC<BetFormProps> = ({
 
       {/* Quick stake percent buttons */}
       <div className="space-y-1.5">
-        <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <div className="flex items-center justify-between text-[11px] text-palette-400">
           <span className="flex items-center gap-1 font-semibold uppercase tracking-wider">
-            <Percent className="w-3 h-3 text-amber-400" />
+            <Percent className="w-3 h-3 text-palette-200" />
             Быстрый % от банка:
           </span>
-          <span className="font-mono text-slate-300 font-bold tabular-nums">
+          <span className="font-mono text-palette-200 font-bold tabular-nums">
             Банк: {formatCurrency(currentBalance, currency)}
           </span>
         </div>
@@ -362,7 +362,7 @@ export const BetForm: React.FC<BetFormProps> = ({
               key={pct}
               type="button"
               onClick={() => handleQuickPercent(pct)}
-              className="py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-300 text-xs font-bold transition-all active:scale-95"
+              className="py-2 rounded-xl bg-palette-900/80 hover:bg-palette-800 border border-palette-400/15 hover:border-palette-400/35 text-palette-300 hover:text-palette-100 text-xs font-bold transition-all active:scale-95"
             >
               {pct}%
             </button>
@@ -372,21 +372,21 @@ export const BetForm: React.FC<BetFormProps> = ({
 
       {/* Potential Calculation Preview Card */}
       {potentialWin > 0 && (
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-transparent border border-amber-400/35 flex items-center justify-between shadow-glow-gold/10">
+        <div className="p-4 rounded-2xl bg-palette-800/60 border border-palette-400/25 flex items-center justify-between shadow-glow-forest/15">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400 shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-palette-700/60 border border-palette-400/25 flex items-center justify-center text-palette-200 shadow-sm">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Выплата</div>
-              <div className="text-lg font-black font-mono text-white tabular-nums">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-palette-400">Выплата</div>
+              <div className="text-lg font-black font-mono text-palette-100 tabular-nums">
                 {formatCurrency(potentialWin, currency)}
               </div>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Чистый профит</div>
-            <div className="text-base font-black font-mono text-emerald-400 tabular-nums">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-palette-400">Чистый профит</div>
+            <div className="text-base font-black font-mono text-status-win tabular-nums">
               +{formatCurrency(netProfit, currency)}
             </div>
           </div>
@@ -397,7 +397,7 @@ export const BetForm: React.FC<BetFormProps> = ({
       <button
         type="submit"
         disabled={isSubmitting || currentBalance <= 0}
-        className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm tracking-wider uppercase shadow-glow-gold active:scale-[0.98] transition-all flex items-center justify-center gap-2 border border-amber-200/50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-4 rounded-2xl bg-palette-600 hover:bg-palette-500 text-palette-100 font-black text-sm tracking-wider uppercase shadow-glow-forest active:scale-[0.98] transition-all flex items-center justify-center gap-2 border border-palette-400/35 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <Calculator className="w-5 h-5 stroke-[2.5]" />
         <span>{isSubmitting ? 'Сохранение...' : 'ЗАКЛЮЧИТЬ СТАВКУ'}</span>

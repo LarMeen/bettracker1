@@ -21,60 +21,61 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, balance, currency }) => {
   const navItems = [
-    { to: '/', label: 'Дашборд и Статистика', icon: LayoutDashboard },
-    { to: '/new-bet', label: 'Создать ставку', icon: PlusCircle },
+    { to: '/', label: 'Дашборд', icon: LayoutDashboard },
+    { to: '/new-bet', label: 'Новая ставка', icon: PlusCircle },
     { to: '/history', label: 'История ставок', icon: History },
-    { to: '/wallet', label: 'Кошелек (Банк)', icon: Wallet },
+    { to: '/wallet', label: 'Банк и Кошелек', icon: Wallet },
   ];
 
   return (
     <>
-      {/* Backdrop with smooth blur */}
+      {/* Mobile Backdrop with smooth blur (only on screens < lg) */}
       <div
-        className={`fixed inset-0 bg-black/75 backdrop-blur-md z-40 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/70 backdrop-blur-md z-40 lg:hidden transition-opacity duration-300 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
       />
 
-      {/* Drawer Panel */}
+      {/* Sidebar Panel - Fixed drawer on mobile, persistent docked sidebar on desktop (lg:w-64) */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] bg-slate-950/95 backdrop-blur-2xl border-r border-white/10 z-50 flex flex-col transform transition-transform duration-300 ease-out safe-top safe-bottom shadow-2xl ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 left-0 bottom-0 w-72 max-w-[85vw] lg:w-64 bg-palette-900/90 lg:bg-palette-900/80 backdrop-blur-2xl border-r border-palette-400/15 z-50 flex flex-col transform transition-transform duration-300 ease-out safe-top safe-bottom shadow-2xl lg:shadow-none ${
+          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        {/* Header */}
-        <div className="p-5 border-b border-white/[0.08] flex items-center justify-between">
+        {/* Brand Header */}
+        <div className="p-5 border-b border-palette-400/10 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-glow-gold/30 border border-amber-300/40">
-              <Crosshair className="w-6 h-6 text-slate-950 stroke-[2.5]" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-palette-600 to-palette-700 flex items-center justify-center shadow-glow-forest border border-palette-400/30">
+              <Crosshair className="w-5 h-5 text-palette-200 stroke-[2.5]" />
             </div>
             <div>
-              <h2 className="font-black text-white text-base leading-tight tracking-wider">CS2 TRACKER</h2>
+              <h2 className="font-black text-palette-100 text-sm tracking-wider uppercase">BetTracker</h2>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <p className="text-[11px] text-amber-400/90 font-semibold tracking-wide">PWA EDITION</p>
+                <span className="w-1.5 h-1.5 rounded-full bg-status-win animate-pulse" />
+                <p className="text-[10px] text-palette-400 font-semibold tracking-wider uppercase">CS2 Analytics</p>
               </div>
             </div>
           </div>
+          {/* Close button on mobile only */}
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center border border-white/10 transition-colors active:scale-95"
+            className="w-9 h-9 rounded-xl bg-palette-800/80 hover:bg-palette-700 text-palette-400 hover:text-palette-100 flex items-center justify-center border border-palette-400/15 transition-colors active:scale-95 lg:hidden"
             aria-label="Закрыть меню"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Bankroll Mini Card inside Drawer */}
-        <div className="p-4 mx-4 my-3 rounded-2xl bg-gradient-to-br from-slate-900/90 to-slate-900/50 border border-white/[0.08] shadow-inner-light">
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-1.5">
-            <span className="font-medium uppercase tracking-wider text-[10px]">Виртуальный банк</span>
-            <div className="p-1 rounded-md bg-emerald-500/10 text-emerald-400">
-              <TrendingUp className="w-3.5 h-3.5" />
+        {/* Bankroll Mini Card inside Sidebar */}
+        <div className="p-4 mx-4 my-3 rounded-2xl glass-card-subtle">
+          <div className="flex items-center justify-between text-xs text-palette-400 mb-1">
+            <span className="font-semibold uppercase tracking-wider text-[10px]">Виртуальный банк</span>
+            <div className="p-1 rounded-md bg-palette-600/30 text-palette-200">
+              <TrendingUp className="w-3 h-3" />
             </div>
           </div>
-          <div className="text-2xl font-black font-mono text-white tracking-tight">
+          <div className="text-xl font-black font-mono text-palette-100 tracking-tight">
             {formatCurrency(balance, currency)}
           </div>
         </div>
@@ -87,18 +88,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, balance, curr
               <NavLink
                 key={item.to}
                 to={item.to}
-                onClick={onClose}
+                onClick={() => onClose()}
                 className={({ isActive }) =>
-                  `flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 ${
+                  `flex items-center gap-3 px-3.5 py-3 rounded-2xl font-semibold text-xs tracking-wide transition-all duration-200 ${
                     isActive
-                      ? 'bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent text-amber-300 border-l-2 border-amber-400 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                      ? 'bg-palette-600/70 text-palette-100 border border-palette-400/30 shadow-[0_0_15px_-2px_rgba(35,83,71,0.5)]'
+                      : 'text-palette-400 hover:text-palette-200 hover:bg-palette-800/40'
                   }`
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <Icon className={`w-5 h-5 transition-colors ${isActive ? 'text-amber-400' : 'text-slate-500'}`} />
+                    <Icon className={`w-4 h-4 transition-colors ${isActive ? 'text-palette-200' : 'text-palette-400'}`} />
                     <span>{item.label}</span>
                   </>
                 )}
@@ -107,13 +108,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, balance, curr
           })}
         </nav>
 
-        {/* Footer info with security & local badge */}
-        <div className="p-4 border-t border-white/[0.08] bg-slate-950/40 text-center">
-          <div className="flex items-center justify-center gap-1.5 text-xs text-slate-400 font-medium">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>Локальное хранилище (Offline)</span>
+        {/* Footer info with local offline storage badge */}
+        <div className="p-4 border-t border-palette-400/10 bg-palette-950/40 text-center">
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-palette-400 font-medium">
+            <ShieldCheck className="w-3.5 h-3.5 text-palette-200" />
+            <span>Локально (Offline PWA)</span>
           </div>
-          <p className="text-[10px] text-slate-600 mt-1">CS2 BetTracker • Без внешних серверов</p>
+          <p className="text-[10px] text-palette-400/60 mt-0.5">Данные хранятся на устройстве</p>
         </div>
       </aside>
     </>
