@@ -96,18 +96,19 @@ export const History: React.FC = () => {
       />
 
       {/* Filter summary bar */}
-      <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-        <span className="flex items-center gap-1 font-medium">
+      <div className="flex items-center justify-between text-xs text-slate-400 px-2 py-1 rounded-xl bg-slate-900/40 border border-white/[0.06]">
+        <span className="flex items-center gap-1.5 font-medium">
           <Layers className="w-3.5 h-3.5 text-amber-400" />
-          Найдено: <strong className="text-white font-mono">{filteredBets.length}</strong>
+          <span>Найдено:</span>
+          <strong className="text-white font-mono font-black tabular-nums">{filteredBets.length}</strong>
         </span>
         {filteredStats.settledCount > 0 && (
-          <span className="font-mono">
-            Профит выборки:{' '}
+          <span className="font-mono tabular-nums text-xs">
+            Профит:{' '}
             <strong
-              className={
+              className={`font-black ${
                 filteredStats.profit >= 0 ? 'text-emerald-400' : 'text-rose-400'
-              }
+              }`}
             >
               {formatCurrencyWithSign(filteredStats.profit, currency)}
             </strong>
@@ -117,10 +118,12 @@ export const History: React.FC = () => {
 
       {/* Bets List */}
       {filteredBets.length === 0 ? (
-        <div className="p-8 rounded-2xl bg-cs-card border border-cs-border text-center space-y-2">
-          <HistoryIcon className="w-8 h-8 text-slate-600 mx-auto" />
-          <p className="font-bold text-white text-sm">Ставки не найдены</p>
-          <p className="text-xs text-slate-400">
+        <div className="p-8 rounded-3xl glass-card text-center space-y-2.5 shadow-xl">
+          <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center mx-auto border border-white/10 text-slate-500">
+            <HistoryIcon className="w-6 h-6" />
+          </div>
+          <p className="font-bold text-white text-base">Ставки не найдены</p>
+          <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
             Попробуйте изменить параметры поиска или сбросить фильтры
           </p>
         </div>
